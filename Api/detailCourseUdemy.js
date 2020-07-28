@@ -4,11 +4,10 @@ const AUTH_TOKEN = "Authorization: Basic MTAxQTVsUWN2MVF1ZnFYcU5zc3BzUDQ3ejJselg
 const DetailCourseUdemy = async (params) => {
   const id = params.id;
   const coupon = params.coupon;
-  const url = "https://www.udemy.com/api-2.0/courses/"+ id +"?couponCode="+ coupon +"&fields[course]=@all";
+  const url = "https://www.udemy.com/api-2.0/courses/"+ id +"?couponcode="+ coupon +"&fields[course]=@all";
   return await axios.get(url,{
     headers: {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Origin, Methods, Content-Type'
     },
     proxy: {
       host: '104.236.174.88',

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Text, View, Linking, Image, StyleSheet, Button } from 'react-native';
 import DetailCourse from '../Api/courseDetail';
+import SpinnerLoading from '../Component/Common/SpinnerComponent';
 import DetailCourseUdemy from '../Api/detailCourseUdemy';
 import Helpers from '../Helpers/Helpers';
-
 const CourseScreen = ({ route }) => {
   const argsSchema = {
     title: {
@@ -22,21 +22,23 @@ const CourseScreen = ({ route }) => {
     }
   };
   const [detailCourse, setDetailCourse] = useState(argsSchema);
+  const [stateSpinner, setStateSpinner] = useState(true);
   const linkApi = route.params.link;
 
 
   useEffect(() => {
 
-    DetailCourseUdemy({
-      id : "python-gui",
-      coupon: "DDFE5266D18994645EA9"
-    }).then((result) => {
-      console.log(result);
-    });
+    // DetailCourseUdemy({
+    //   id : "python-gui",
+    //   coupon: "DDFE5266D18994645EA9"
+    // }).then((result) => {
+    //   console.log(result);
+    // });
 
 
     DetailCourse(linkApi).then((result) => {
       setDetailCourse(result.data);
+      setStateSpinner(false);
     }).catch((e) => console.log(e));
   }, []);
 
@@ -58,6 +60,7 @@ const CourseScreen = ({ route }) => {
 
   return (
     <View>
+      <SpinnerLoading visiable={stateSpinner} />
       <View style={styles.wrapImage}>
         <Image style={styles.thumbnail} source={{
           uri: detailCourse.meta_box.url_img
